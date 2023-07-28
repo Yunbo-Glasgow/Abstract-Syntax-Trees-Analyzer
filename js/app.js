@@ -13,62 +13,32 @@ function buildTree() {
     new Treant(treeData);
 }
 
+var chart_config = {
+    chart: {
+        container: "#tree-container",
+        animateOnInit: true,
+        node: {
+            collapsable: true
+        },
+        animation: {
+            nodeAnimation: "easeOutBounce",
+            nodeSpeed: 700,
+            connectorsAnimation: "bounce",
+            connectorsSpeed: 700
+        }
+    },
+    nodeStructure: {
+        text: {
+            name: "+",
+        },
+        children: [
+
+        ],
+    },
+};
+
 function parseExpression(expression) {
-    return {
-        chart: {
-            container: "#tree-container",
-            animateOnInit: true,
-            node: {
-                collapsable: true
-            },
-            animation: {
-                nodeAnimation: "easeOutBounce",
-                nodeSpeed: 700,
-                connectorsAnimation: "bounce",
-                connectorsSpeed: 700
-            }
-        },
-        nodeStructure: {
-            text: {
-                name: "+",
-            },
-            children: [
-                {
-                    text: {
-                        name: "+",
-                    },
-                    children: [
-                        {
-                            text: {
-                                name: "1",
-                            },
-                        },
-                        {
-                            text: {
-                                name: "2",
-                            },
-                        },
-                    ],
-                },
-                {
-                    text: {
-                        name: "+",
-                    },
-                    children: [
-                        {
-                            text: {
-                                name: "3",
-                            },
-                        },
-                        {
-                            text: {
-                                name: "4",
-                            },
-                        },
-                    ],
-                },
-            ],
-        },
-    };
+    alert(expression)
+    return chart_config;
 }
 
