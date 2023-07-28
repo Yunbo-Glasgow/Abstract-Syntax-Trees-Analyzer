@@ -7,13 +7,24 @@
     <!-- stylesheets -->
     <link rel="stylesheet" href="./treant-js-master/Treant.css" type="text/css" />
     <link rel="stylesheet" href="./css/style.css" type="text/css" />
+    <link rel="stylesheet" href=".\treant-js-master\vendor\perfect-scrollbar\perfect-scrollbar.css">
 </head>
 
 <body>
+    <div>
+        <label for="expression">Enter a expression:</label>
+        <input type="text" id="expression">
+        <button onclick="buildTree()">Build Tree</button>
+    </div>
+    ...
+    <div id="tree-container"></div>
     ...
     <!-- javascript -->
     <script src="./treant-js-master/vendor/raphael.js"></script>
     <script src="./treant-js-master/Treant.js"></script>
+    <script src="treant-js-master\vendor\jquery.min.js"></script>
+    <script src="treant-js-master\vendor\jquery.easing.js"></script>
+
     <script src="./js/app.js"></script>
 </body>
 
