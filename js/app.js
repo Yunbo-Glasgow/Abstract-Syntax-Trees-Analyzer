@@ -17,6 +17,24 @@ function isValidExpression(expression) {
     }
 }
 
+function calculateTree() {
+    let expression = document.getElementById('expression').value;
+    if (!isValidExpression(expression)) {
+        const ifElseRegex = /^if\s*\((.*?)\)\s*{\s*(.*?)}\s*else\s*{\s*(.*?)}/;
+        const match = expression.match(ifElseRegex);
+        const condition = match[1].trim();
+        expression = condition;
+    }
+    const resultElement = document.getElementById("result");
+    try {
+        const result = eval(expression);
+        resultElement.textContent = "Result: " + result;
+    } catch (error) {
+        resultElement.textContent = "Error: Invalid expression";
+    }
+
+}
+
 function buildTree() {
     let expression = document.getElementById('expression').value;
     if (!isValidExpression(expression)) {
