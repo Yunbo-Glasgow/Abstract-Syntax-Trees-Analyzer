@@ -1,5 +1,5 @@
 function isValidExpression(expression) {
-    const ifElseRegex = /^if\s*\((.*?)\)\s*{\s*(.*?)}\s*else\s*{\s*(.*?)}/;
+    const ifElseRegex = /^if\s+(.+?)\s+then\s+(.+?)\s+else\s+(.+)$/i;
     const match = expression.match(ifElseRegex);
     if (match) {
         console.log(match)
@@ -7,7 +7,7 @@ function isValidExpression(expression) {
         const ifBlock = match[2].trim();
         const elseBlock = match[3].trim();
         // -> parse if
-        // if (x > 5) { result = 'x is greater than 5'; } else { result = 'x is not greater than 5'; }
+        // if x > 0 then "Positive" else "Non-positive"
         const treeData = parseIfThenElse(condition, ifBlock, elseBlock);
         new Treant(treeData);
         return false;
@@ -20,7 +20,7 @@ function isValidExpression(expression) {
 function calculateTree() {
     let expression = document.getElementById('expression').value;
     if (!isValidExpression(expression)) {
-        const ifElseRegex = /^if\s*\((.*?)\)\s*{\s*(.*?)}\s*else\s*{\s*(.*?)}/;
+        const ifElseRegex = /^if\s+(.+?)\s+then\s+(.+?)\s+else\s+(.+)$/i;
         const match = expression.match(ifElseRegex);
         const condition = match[1].trim();
         expression = condition;
@@ -107,13 +107,26 @@ var binop = [];
 
 // -> parse if
 function parseIfThenElse(condition, ifBlock, elseBlock) {
-    const conditionItem = new NodeStructure(condition);
-    conditionItem.children.push(new NodeStructure("true ->"));
-    conditionItem.children.push(new NodeStructure(ifBlock));
-    conditionItem.children.push(new NodeStructure("false ->"));
-    conditionItem.children.push(new NodeStructure(elseBlock));
-    chart_config.nodeStructure = conditionItem;
+    const ifItem = new NodeStructure("if");
+    const conditions = divideCondition(condition);
+
+    const operator = new NodeStructure(conditions[2]);
+    operator.children.push(new NodeStructure(conditions[1]));
+    operator.children.push(new NodeStructure(conditions[3]));
+    ifItem.children.push(operator);
+    ifItem.children.push(new NodeStructure(ifBlock));
+    ifItem.children.push(new NodeStructure(elseBlock));
+    chart_config.nodeStructure = ifItem;
     return chart_config;
+}
+
+function divideCondition(condition) {
+    // 定义匹配表达式的正则表达式
+    var expressionPattern = /^(.*?)\s*([<>!=]+)\s*(.*?)$/;
+
+    // 尝试匹配表达式
+    var matchResult = condition.match(expressionPattern);
+    return matchResult;
 }
 
 // String -> AST
